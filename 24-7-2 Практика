@@ -1,0 +1,105 @@
+1. Получение списка всех пользователей:
+import requests
+
+def test_get_all_users():
+    response = requests.get('https://petfriends.skillfactory.ru/api/users')
+    assert response.status_code == 200
+    assert len(response.json()) > 0
+
+
+2. Получение списка всех питомцев:
+import requests
+
+def test_get_all_pets():
+    response = requests.get('https://petfriends.skillfactory.ru/api/pets')
+    assert response.status_code == 200
+    assert len(response.json()) > 0
+
+
+3. Получение информации о конкретном пользователе:
+import requests
+
+def test_get_user_info():
+    response = requests.get('https://petfriends.skillfactory.ru/api/users/1')
+    assert response.status_code == 200
+    assert response.json()['name'] == 'John'
+
+
+4. Получение информации о конкретном питомце:
+import requests
+
+def test_get_pet_info():
+    response = requests.get('https://petfriends.skillfactory.ru/api/pets/1')
+    assert response.status_code == 200
+    assert response.json()['name'] == 'Buddy'
+
+
+5. Создание нового пользователя:
+import requests
+
+def test_create_new_user():
+    data = {
+        'name': 'Jane',
+        'email': 'jane@example.com',
+        'password': 'password123'
+    }
+    response = requests.post('https://petfriends.skillfactory.ru/api/users', json=data)
+    assert response.status_code == 201
+    assert response.json()['name'] == 'Jane'
+
+
+6. Создание нового питомца:
+import requests
+
+def test_create_new_pet():
+    data = {
+        'name': 'Max',
+        'animal_type': 'dog',
+        'age': 2,
+        'user_id': 1
+    }
+    response = requests.post('https://petfriends.skillfactory.ru/api/pets', json=data)
+    assert response.status_code == 201
+    assert response.json()['name'] == 'Max'
+
+
+7. Обновление информации о пользователе:
+import requests
+
+def test_update_user_info():
+    data = {
+        'name': 'John Smith',
+        'email': 'john.smith@example.com'
+    }
+    response = requests.put('https://petfriends.skillfactory.ru/api/users/1', json=data)
+    assert response.status_code == 200
+    assert response.json()['email'] == 'john.smith@example.com'
+
+
+8. Обновление информации о питомце:
+import requests
+
+def test_update_pet_info():
+    data = {
+        'name': 'Buddy Jr.',
+        'age': 3
+    }
+    response = requests.put('https://petfriends.skillfactory.ru/api/pets/1', json=data)
+    assert response.status_code == 200
+    assert response.json()['name'] == 'Buddy Jr.'
+
+
+9. Удаление пользователя:
+import requests
+
+def test_delete_user():
+    response = requests.delete('https://petfriends.skillfactory.ru/api/users/1')
+    assert response.status_code == 204
+
+
+10. Удаление питомца:
+import requests
+
+def test_delete_pet():
+    response = requests.delete('https://petfriends.skillfactory.ru/api/pets/1')
+    assert response.status_code == 204
